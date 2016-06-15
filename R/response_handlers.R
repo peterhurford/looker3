@@ -21,7 +21,7 @@ validate_response <- function(response) {
     "The status code was",
     httr::status_code(response),
     "and the error message was",
-    httr::content(response)$message
+    httr::content(response)$message %||% "not provided"
     )
   )
 }
