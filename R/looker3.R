@@ -10,7 +10,8 @@
 #' @param model character. The \code{model} parameter of the query.
 #' @param view character. The \code{view} parameter of the query.
 #' @param fields character. The \code{fields} parameter of the query.
-#' @param filters list. Each element of the list is a length 2 character vector,
+#' @param filters list or character.  Either a named list, or a character
+#' vector using colons as separators
 #' each vector describing one of the \code{filters} of the query.
 #' @param limit numeric. The \code{limit} parameter of the query.
 #' @param silent_read_csv logical. Whether or not to suppress warnings
@@ -18,6 +19,19 @@
 #'
 #' @return a data.frame containing the data returned by the query
 #'
+#' @ examples \dontrun{
+#'   df <- looker3(model = "thelook",
+#'                 view = "orders",
+#'                 fields = c("orders.count", "orders.created_month")
+#'                 filters = list("orders.created_month" = "90 days", "orders.status" = "complete")
+#'   )
+#' 
+#'   df <- looker3(model = "thelook",
+#'                 view = "orders",
+#'                 fields = c("orders.count", "orders.created_month")
+#'                 filters = c("orders.created_month: 90 days", "orders.status: complete")
+#'   )  
+#' }
 #' @export
 looker3 <- checkr::ensure(pre = list(   # model, view, and fields are
              model %is% simple_string,  # required to form a query.

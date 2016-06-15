@@ -16,7 +16,8 @@ looker3(model, view, fields, filters = list(), limit = 1000,
 
 \item{fields}{character. The \code{fields} parameter of the query.}
 
-\item{filters}{list. Each element of the list is a length 2 character vector,
+\item{filters}{list or character.  Either a named list, or a character
+vector using colons as separators
 each vector describing one of the \code{filters} of the query.}
 
 \item{limit}{numeric. The \code{limit} parameter of the query.}
