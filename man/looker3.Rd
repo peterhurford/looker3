@@ -39,4 +39,19 @@ variables \code{LOOKER_URL}, \code{LOOKER_ID}, and
 The function will not allow the query to proceed unless you specify
 a model, a view, and at least one field.
 }
+\examples{
+\dontrun{
+  df <- looker3(model = "thelook",
+                view = "orders",
+                fields = c("orders.count", "orders.created_month")
+                filters = list("orders.created_month" = "90 days", "orders.status" = "complete")
+  )
+
+  df <- looker3(model = "thelook",
+                view = "orders",
+                fields = c("orders.count", "orders.created_month")
+                filters = c("orders.created_month: 90 days", "orders.status: complete")
+  )  
+}
+}
 

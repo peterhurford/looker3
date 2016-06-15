@@ -19,7 +19,7 @@
 #'
 #' @return a data.frame containing the data returned by the query
 #'
-#' @ examples \dontrun{
+#' @examples \dontrun{
 #'   df <- looker3(model = "thelook",
 #'                 view = "orders",
 #'                 fields = c("orders.count", "orders.created_month")
