@@ -23,7 +23,7 @@ df <- looker3(model = "thelook",
 )
 ```
 
-# Specifying filters.
+# Specifying filters
 
 There are two ways to specify filters. 
 * As a list, as illustrated above
