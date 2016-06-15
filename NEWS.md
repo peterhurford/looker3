@@ -1,3 +1,6 @@
+# Version 0.1.12
+- Added message from the http response from Looker to error messages coming from `validate_response`.
+
 # Version 0.1.11
 - Fixed bug where `looker3` was not passing `silent_read_csv` to `run_inline_query`.
 
