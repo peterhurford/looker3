@@ -11,12 +11,14 @@ fake_query_failure   <- list(status = "500")
 fake_logout_failure  <- list(status = "500")
 
 
-with_mock(`httr::status_code` = function(x) x$status, {
+with_mock(
+  `httr::status_code` = function(x) x$status, 
+  `httr::content`     = function(...) list(message = "error message"), {
   test_that("validate_response errors with step name and status code", {
     expect_error(validate_response(fake_query_failure),
-      "The fake query failure of your Looker query")
+      "The fake query failure step in looker")
     expect_error(validate_response(fake_query_failure),
-      "returned a status code of 500")
+      "status code was 500")
    })
 })
 
