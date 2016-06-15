@@ -23,7 +23,11 @@ df <- looker3(model = "thelook",
 )
 ```
 
-Filters can be specified as above, or as a character string with colon separations, e.g. 
+# Specifying filters.
+
+There are two ways to specify filters. 
+* As a list, as illustrated above
+* As a vector, using a colon as a separator, e.g.
 
 ```
 filters = c("orders.created_month: 90 days", "orders.status: complete")
