@@ -16,7 +16,8 @@ looker3(model, view, fields, filters = list(), limit = 1000,
 
 \item{fields}{character. The \code{fields} parameter of the query.}
 
-\item{filters}{list. Each element of the list is a length 2 character vector,
+\item{filters}{list or character.  Either a named list, or a character
+vector using colons as separators
 each vector describing one of the \code{filters} of the query.}
 
 \item{limit}{numeric. The \code{limit} parameter of the query.}
@@ -37,5 +38,20 @@ variables \code{LOOKER_URL}, \code{LOOKER_ID}, and
 \details{
 The function will not allow the query to proceed unless you specify
 a model, a view, and at least one field.
+}
+\examples{
+\dontrun{
+  df <- looker3(model = "thelook",
+                view = "orders",
+                fields = c("orders.count", "orders.created_month")
+                filters = list("orders.created_month" = "90 days", "orders.status" = "complete")
+  )
+
+  df <- looker3(model = "thelook",
+                view = "orders",
+                fields = c("orders.count", "orders.created_month")
+                filters = c("orders.created_month: 90 days", "orders.status: complete")
+  )  
+}
 }
 
