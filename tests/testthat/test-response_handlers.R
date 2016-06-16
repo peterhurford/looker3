@@ -7,17 +7,31 @@ fake_query_response  <- list(status = "200",
                              body = "ID, VALUE \n 1, 2")
 silent_error_response <- list(status = "200",
                               body = "Error: something went wrong despite the status code being successful")
-fake_query_failure   <- list(status = "500")
-fake_logout_failure  <- list(status = "500")
+
+fake_query_failure   <- list(status = "500", error_message = "fake_error_message")
+fake_query_failure_without_message <- list(status = "500")
 
 
-with_mock(`httr::status_code` = function(x) x$status, {
-  test_that("validate_response errors with step name and status code", {
+with_mock(
+  `httr::status_code` = function(x) x$status, 
+  `httr::content`     = function(x) list(message = x$error_message), {
+  test_that("validate_response errors with step name, status code, and error message", {
     expect_error(validate_response(fake_query_failure),
-      "The fake query failure of your Looker query")
+      "The fake query failure step in looker")
     expect_error(validate_response(fake_query_failure),
-      "returned a status code of 500")
-   })
+      "status code was 500")
+    expect_error(validate_response(fake_query_failure),
+      "fake_error_message")
+  })
+  test_that("validate_response yields step name and status code even if there's no message", {
+    expect_error(validate_response(fake_query_failure_without_message),
+      "The fake query failure without message step in looker")
+    expect_error(validate_response(fake_query_failure_without_message),
+      "status code was 500")
+    expect_error(validate_response(fake_query_failure_without_message),
+      "not provided")
+  
+  })
 })
 
 

@@ -17,9 +17,11 @@ validate_response <- function(response) {
 
   stop(paste("The",
     gsub("_", " ", deparse(substitute(response))),
-    "of your Looker query was not a successful response.",
-    "It returned a status code of",
-    httr::status_code(response)
+    "step in looker failed.",
+    "The status code was",
+    httr::status_code(response),
+    "and the error message was",
+    httr::content(response)$message %||% "not provided"
     )
   )
 }
