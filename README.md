@@ -1,8 +1,4 @@
-## looker3
-[![Build status](https://circleci.int.avant.com/gh/avantcredit/looker3.svg?style=shield&circle-token=cba511bcfb3de5d2b73d9770e9f7e4c359d9b5dd)](https://circleci.int.avant.com/gh/avantcredit/looker3)
-<a href="https://codecov.io/github/avantcredit/looker3"><img
-src="https://img.shields.io/codecov/c/github/avantcredit/looker3.svg"></a>
-<a href="https://github.com/avantcredit/looker3/tags"><img src="https://img.shields.io/github/tag/avantcredit/looker3.svg"></a>
+## looker3 <a href="https://travis-ci.org/avantcredit/looker3"><img src="https://img.shields.io/travis/avantcredit/looker3.svg"></a> <a href="https://codecov.io/github/avantcredit/looker3"><img src="https://img.shields.io/codecov/c/github/avantcredit/looker3.svg"></a> <a href="https://github.com/avantcredit/looker3/tags"><img src="https://img.shields.io/github/tag/avantcredit/looker3.svg"></a>
 
 Pull data from Looker with the 3.0 API.
 
