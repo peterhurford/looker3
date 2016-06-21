@@ -36,4 +36,3 @@ There are two ways to specify filters.
 ```
 filters = c("orders.created_month: 90 days", "orders.status: complete")
 ```
-
