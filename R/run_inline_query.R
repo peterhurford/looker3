@@ -27,12 +27,13 @@ run_inline_query <- function(base_url, client_id, client_secret,
   inline_query_response <- query_api_call(base_url,
     model, view, fields, filters, limit) 
 
-  output <- extract_query_result(inline_query_response, silent_read_csv)
+  output   <- extract_query_result(inline_query_response, silent_read_csv)
+  colnames <- names(output)
 
-  if (ncol(output) != length(fields)) {
-    warning(paste("Looker data has", ncol(output), "columns,",
-            "but", length(fields), "fields provided."))
+  if (length(colnames) != length(fields)) {
+    warning(paste("Number of columns returned doesn't match number of fields provided.",
+      "\n Looker data column names:", paste0(colnames, collapse = ", "),
+      "\n fields provided:", paste0(list_to_colon_split(fields), collapse = ", "))paste("Looker data has", ncol(output), "columns,",
   }
   output
-
 }

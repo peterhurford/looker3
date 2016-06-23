@@ -77,10 +77,3 @@ looker3 <- checkr::ensure(pre = list(   # model, view, and fields are
   }
 )
 
-colon_split_to_list <- function(string) {
-  colon_split <- strsplit(string, ": ")
-  field_names <- lapply(colon_split, `[[`, 1)
-  values <- lapply(colon_split, `[[`, 2)
-  names(values) <- field_names
-  values
-}
