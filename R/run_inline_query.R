@@ -18,9 +18,7 @@ run_inline_query <- function(base_url, client_id, client_secret,
                       limit = 1000, silent_read_csv) {
 
 
-  # The API requires you to "log in" and obtain a session token
-  # TODO: find a way to cache the session token, perhaps using memoise package?
-
+  # The API requires you to have an access token obtained by "logging in".
   if (cached_token_is_invalid()) {
     login_response <- login_api_call(base_url, client_id, client_secret)
     put_new_token_in_cache(login_response)
@@ -29,5 +27,12 @@ run_inline_query <- function(base_url, client_id, client_secret,
   inline_query_response <- query_api_call(base_url,
     model, view, fields, filters, limit) 
 
-  extract_query_result(inline_query_response, silent_read_csv)
+  output <- extract_query_result(inline_query_response, silent_read_csv)
+
+  if (ncol(output) != length(fields)) {
+    warning(paste("Looker data has", ncol(output), "columns,",
+            "but", length(fields), "fields provided."))
+  }
+  output
+
 }

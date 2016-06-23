@@ -1,3 +1,6 @@
+# Version 0.1.13
+- Added a warning if the number of columns returned is different from the number of fields provided.
+
 # Version 0.1.12
 - Added message from the http response from Looker to error messages coming from `validate_response`.
 
