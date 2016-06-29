@@ -2,7 +2,6 @@ context("response handling helper functions")
 
 fake_login_response  <- list(status = "200", 
                             body = list(access_token = "FAKE_TOKEN"))
-fake_logout_response <- list(status = "204")  
 fake_query_response  <- list(status = "200", 
                              body = "ID, VALUE \n 1, 2")
 silent_error_response <- list(status = "200",
@@ -30,7 +29,16 @@ with_mock(
       "status code was 500")
     expect_error(validate_response(fake_query_failure_without_message),
       "not provided")
-  
+  })
+  with_mock(`httr::content` = function(x) { x$error_message }, {
+    test_that("validate_response yields step name and status code if response content is not a list", {
+      expect_error(validate_response(fake_query_failure),
+        "The fake query failure step in looker")
+      expect_error(validate_response(fake_query_failure),
+        "status code was 500")
+      expect_error(validate_response(fake_query_failure),
+        "fake_error_message")
+    })
   })
 })
 
@@ -41,7 +49,6 @@ test_that("helpers validate before processing responses", {
       stop("valiate_response called")
     }, {
       expect_error(extract_login_token(fake_login_response))
-      expect_error(handle_logout_response(fake_logout_response))
       expect_error(extract_query_result(fake_query_response))
   })
 })
@@ -49,10 +56,7 @@ test_that("helpers validate before processing responses", {
 describe("processing successful responses", {
   with_mock(
   `httr::status_code` = function(response) { response$status }, 
-  `httr::content` = function(response) { response$body }, {
-    test_that("handle_logout_response returns TRUE", {
-      expect_true(handle_logout_response(fake_logout_response))
-    })
+  `httr::content`     = function(response) { response$body }, {
     test_that("extract_query_result returns a data frame", {
       result <- extract_query_result(fake_query_response)
       # readr::read_csv adds extra classes,

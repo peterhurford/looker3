@@ -16,7 +16,6 @@ describe("run_inline_query helpers called with the corresponding inputs", {
     `looker3:::logout_api_call` = function(...) NULL,
     `looker3:::cached_token_is_invalid` = function(...) FALSE,
     `looker3:::query_api_call` = function(...) NULL,
-    `looker3:::handle_logout_response` = function(...) NULL,
     `looker3:::extract_query_result` = function(...) NULL, {
 
       test_that("login_api_call called if cached token is invalid", {
