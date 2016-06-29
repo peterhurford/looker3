@@ -1,3 +1,6 @@
+# Version 0.1.14
+- Fixed bug where `validate_response` would crash if the response object was not a list.
+
 # Version 0.1.13
 - Added a warning if the number of columns returned is different from the number of fields provided.
 
