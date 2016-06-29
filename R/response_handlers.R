@@ -9,19 +9,24 @@ is.successful_response <- function(response) {
   httr::status_code(response) %in% c("200", "201", "202", "204")
 }
 
+extract_error_message <- function(response) {
+  response_body <- httr::content(response)
+  if (is.list(response_body)) {
+    response_body$message
+  } else {
+    response_body
+  }
+}
+
 validate_response <- function(response) {
   if (is.successful_response(response)) { return(TRUE) }
 
-  query_type  <- deparse(substitute(response))
-  status_code <- httr::status_code(response)
-
   stop(paste("The",
     gsub("_", " ", deparse(substitute(response))),
-    "step in looker failed.",
-    "The status code was",
+    "step in looker failed. The status code was",
     httr::status_code(response),
     "and the error message was",
-    httr::content(response)$message %||% "not provided"
+    extract_error_message(response) %||% "not provided."
     )
   )
 }
@@ -35,17 +40,12 @@ put_new_token_in_cache <- function(login_response) {
   ))
 }
 
-
-handle_logout_response <- function(logout_response) { 
-  validate_response(logout_response)
-}
-
 extract_query_result <- function(query_response, silent_read_csv = TRUE) {
   validate_response(query_response)
   data_from_query <- httr::content(query_response)
   if (grepl("^Error:", data_from_query)) {
     # assume that the query errored quietly and that data_from_query is an error message.
-    stop("Looker returned the following error message:\n", as.character(data_from_query))
+    stop("Looker returned no data and the following error message:\n", as.character(data_from_query))
   }
   if (silent_read_csv) {
     suppressWarnings(readr::read_csv(data_from_query))
