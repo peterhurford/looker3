@@ -1,3 +1,7 @@
+# Version 0.1.15
+- Error out if `looker3::looker3` is called with filters that duplicate a dimension name,
+  since these will not be processed correctly (JSON objects cannot have duplicate names).
+
 # Version 0.1.14
 - Fixed bug where `validate_response` would crash if the response object was not a list.
 

@@ -70,7 +70,14 @@ looker3 <- checkr::ensure(pre = list(   # model, view, and fields are
     # if user-specified filters as a character vector, reformat to a list
     if (!missing(filters) && is.character(filters)) {
       filters <- colon_split_to_list(filters) 
+      if (anyDuplicated(names(filters))) {
+        stop("Looker query contains duplicate filters and only the first one ",
+             "will be executed. Please drop or coalesce these: ",
+             paste(unique(names(filters)[duplicated(names(filters))]), collapse = ", "),
+             call. = FALSE)
+      }
     }
+
 
     run_inline_query(looker_setup$LOOKER_URL, looker_setup$LOOKER_ID, looker_setup$LOOKER_SECRET,
       model, view, fields, filters, limit, silent_read_csv)
