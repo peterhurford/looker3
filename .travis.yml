@@ -4,6 +4,8 @@ dist: trusty
 git:
   submodules: false
 
+warnings_are_errors: false
+
 r:
     - oldrel
     - release
@@ -19,7 +21,6 @@ r_binary_packages:
 
 env:
   - global:
-    - WARNINGS_ARE_ERRORS=0
     - _R_CHECK_FORCE_SUGGESTS_=0
     - LINTR_COMMENT_BOT=false
 cache:
