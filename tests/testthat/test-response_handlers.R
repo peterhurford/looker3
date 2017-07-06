@@ -61,8 +61,10 @@ describe("processing successful responses", {
       result <- extract_query_result(fake_query_response)
       # readr::read_csv adds extra classes,
       # so let's remove them before making our comparison
+      attributes(result)$spec <- NULL
       class(result) <- "data.frame"
-      expect_equal(result, data.frame(ID = 1, VALUE = 2))
+      expect_equal(result, data.frame(ID = as.integer(1), 
+                                      VALUE = as.integer(2)))
     })
     test_that("extract_query_result errors on 'silent' errors", {
       
