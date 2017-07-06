@@ -21,6 +21,7 @@ Suggests:
     testthat,
     withr
 Remotes: peterhurford/checkr@0.0.4.9008,
-    kirillseva/cacher@0.1.0
+    kirillseva/cacher@0.1.0,
+    robertzk/testthatsomemore
 Roxygen: list(wrap = FALSE)
 RoxygenNote: 5.0.1
