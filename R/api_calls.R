@@ -19,6 +19,8 @@ query_api_call <- function(base_url, model, view, fields, filters,
                   filters = filters, limit = limit)
   if (length(filters) == 0) { query_body$filters <- NULL }
 
+
+  browser()
   httr::with_config(httr::timeout(getOption("looker3.timeout", 7200)), 
     httr::POST(url = query_url,
       httr::add_headers(Authorization = paste0("token ", token)),

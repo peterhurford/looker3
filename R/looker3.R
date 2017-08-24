@@ -70,6 +70,10 @@ looker3 <- checkr::ensure(pre = list(   # model, view, and fields are
     # if user-specified filters as a character vector, reformat to a list
     if (!missing(filters) && is.character(filters)) {
       filters <- colon_split_to_list(filters) 
+      # Take duplicate filters which will have multiple occurences of the same key
+      # name in the filters list and flatten them into character vectors so each
+      # key is unique.
+      filters <- tapply(filters, names(filters), FUN = function(queries) { unlist(unname(queries)) })
       if (anyDuplicated(names(filters))) {
         stop("Looker query contains duplicate filters and only the first one ",
              "will be executed. Please drop or coalesce these: ",
