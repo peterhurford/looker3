@@ -74,12 +74,6 @@ looker3 <- checkr::ensure(pre = list(   # model, view, and fields are
       # name in the filters list and flatten them into character vectors so each
       # key is unique.
       filters <- tapply(filters, names(filters), FUN = function(queries) { unlist(unname(queries)) })
-      if (anyDuplicated(names(filters))) {
-        stop("Looker query contains duplicate filters and only the first one ",
-             "will be executed. Please drop or coalesce these: ",
-             paste(unique(names(filters)[duplicated(names(filters))]), collapse = ", "),
-             call. = FALSE)
-      }
     }
 
 
