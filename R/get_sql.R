@@ -31,7 +31,6 @@
 #'   )
 #' }
 #' @export
-
 get_sql <- checkr::ensure(pre = list(   # model, view, and fields are
              model %is% simple_string,  # required to form a query.
              view %is% simple_string,
