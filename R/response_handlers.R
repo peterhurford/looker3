@@ -40,14 +40,14 @@ put_new_token_in_cache <- function(login_response) {
   ))
 }
 
-extract_query_result <- function(query_response, silent_read_csv = TRUE) {
+extract_query_result <- function(query_response, return_format, silent_read_csv = TRUE) {
   validate_response(query_response)
   data_from_query <- httr::content(query_response)
   if (grepl("^Error:", data_from_query)) {
     # assume that the query errored quietly and that data_from_query is an error message.
     stop("Looker returned no data and the following error message:\n", as.character(data_from_query))
   }
-  if (silent_read_csv) {
+  if (identical(return_format, "csv") && silent_read_csv) {
     suppressWarnings(readr::read_csv(data_from_query))
   } else {
     readr::read_csv(data_from_query)

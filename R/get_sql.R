@@ -18,13 +18,13 @@
 #' @return a simple string containing the SQL query.
 #'
 #' @examples \dontrun{
-#'   df <- get_sql(model = "thelook",
+#'   query <- get_sql(model = "thelook",
 #'                 view = "orders",
 #'                 fields = c("orders.count", "orders.created_month")
 #'                 filters = list("orders.created_month" = "90 days", "orders.status" = "complete")
 #'   )
 #'
-#'   df <- get_sql(model = "thelook",
+#'   query <- get_sql(model = "thelook",
 #'                 view = "orders",
 #'                 fields = c("orders.count", "orders.created_month")
 #'                 filters = c("orders.created_month: 90 days", "orders.status: complete")
@@ -52,6 +52,6 @@ get_sql <- checkr::ensure(pre = list(   # model, view, and fields are
     }
 
     run_inline_query(looker_setup$LOOKER_URL, looker_setup$LOOKER_ID, looker_setup$LOOKER_SECRET,
-      model, view, fields, filters, limit, return_format = "sql")
+      model, view, fields, filters, limit, return_format = "sql", silent_read_csv)
   }
 )
