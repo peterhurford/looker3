@@ -40,7 +40,7 @@ put_new_token_in_cache <- function(login_response) {
   ))
 }
 
-extract_query_result <- function(query_response, silent_read_csv = TRUE) {
+extract_data_from_response <- function(query_response, silent_read_csv = TRUE) {
   validate_response(query_response)
   data_from_query <- httr::content(query_response)
   if (grepl("^Error:", data_from_query)) {
@@ -52,5 +52,10 @@ extract_query_result <- function(query_response, silent_read_csv = TRUE) {
   } else {
     readr::read_csv(data_from_query)
   }
+}
+
+extract_sql_from_response <- function(query_response) {
+  validate_response(query_response)
+  httr::content(query_response)
 }
 

@@ -16,16 +16,16 @@ Before pulling data from Looker, you need to set up environment variables LOOKER
 Once those are set up, you can access data using the `looker3` function:
 ```R
 library("looker3")
-df <- looker3(model = "thelook",
-              view = "orders",
-              fields = c("orders.count", "orders.created_month")
-              filters = list("orders.created_month" = "90 days", "orders.status" = "complete")
+df <- pull_data(model = "thelook",
+                view = "orders",
+                fields = c("orders.count", "orders.created_month")
+                filters = list("orders.created_month" = "90 days", "orders.status" = "complete")
 )
 ```
 
 # Specifying filters
 
-There are two ways to specify filters. 
+There are two ways to specify filters.
 * As a list, as illustrated above
 * As a vector, using a colon as a separator, e.g.
 
