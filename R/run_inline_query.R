@@ -28,10 +28,10 @@ run_inline_query <- function(base_url, client_id, client_secret,
   inline_query_response <- query_api_call(base_url,
     model, view, fields, filters, limit, return_format)
 
-  output   <- extract_query_result(inline_query_response, return_format, silent_read_csv)
 
 
   if (identical(return_format, "csv")) {
+    output   <- extract_data_from_response(inline_query_response, silent_read_csv)
     colnames <- names(output)
 
     if (length(colnames) != length(fields)) {
@@ -41,5 +41,11 @@ run_inline_query <- function(base_url, client_id, client_secret,
       )
     }
   }
+
+
+  if (identical(return_format, "sql")) {
+    output <- extract_sql_from_response(inline_query_response)
+  }
+
   output
 }
