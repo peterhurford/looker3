@@ -17,7 +17,7 @@ run_inline_query <- function(base_url, client_id, client_secret,
                       model, view, fields, filters,
                       limit = 1000, return_format = c("csv", "sql"), silent_read_csv) {
 
-  return_format <- match.args(return_format)
+  return_format <- match.arg(return_format)
 
   # The API requires you to have an access token obtained by "logging in".
   if (cached_token_is_invalid()) {
