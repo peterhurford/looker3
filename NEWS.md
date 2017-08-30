@@ -1,3 +1,7 @@
+# Version 0.2.0
+- Renamed `looker3::looker3` to `pull_data`
+- Added `get_sql` function, to request underlying sql query instead of data
+
 # Version 0.1.15
 - Error out if `looker3::looker3` is called with filters that duplicate a dimension name,
   since these will not be processed correctly (JSON objects cannot have duplicate names).
