@@ -1,31 +1,31 @@
-language: c
-sudo: false
+language: r
+sudo: required
+dist: trusty
 git:
   submodules: false
-addons:
-  apt:
-    sources:
-      - r-packages-precise
-    packages:
-      - r-base-dev
-      - r-recommended
-      - pandoc
+
+warnings_are_errors: false
+
+r:
+    - oldrel
+    - release
+    - devel
+
+r_github_packages:
+    - jimhester/covr
+    - jimhester/lintr
+
+r_binary_packages:
+    - devtools
+    - roxygen2
+
 env:
   - global:
-    - WARNINGS_ARE_ERRORS=0
     - _R_CHECK_FORCE_SUGGESTS_=0
-    - R_LIBS_USER=~/.R/library
     - LINTR_COMMENT_BOT=false
 cache:
-  directories:
-    $R_LIBS_USER
-before_script:
-  - mkdir -p "$R_LIBS_USER"
-  - Rscript -e 'if (!require("devtools")) install.packages("devtools", repos = "http://cran.rstudio.com/")'
-  - Rscript -e 'if (!require("roxygen2")) devtools::install_github("klutometis/roxygen@v5.0.1")'
-  - Rscript -e 'if (!require("covr")) install.packages("covr", repos = "http://cran.rstudio.com/")'
-  - Rscript -e 'devtools::install_deps(repos = "http://cran.rstudio.com", dependencies = TRUE)'
-script:
-  - Rscript -e 'r <- as.data.frame(devtools::test(".")); quit(save = "no", status = if (sum(r$failed) > 0) { 1 } else { 0 }, runLast = FALSE)'
+  packages: true
+
 after_success:
-  - Rscript -e 'library(covr);codecov()'
+    - Rscript -e 'covr::codecov()'
+    - Rscript -e 'lintr::lint_package()'
