@@ -1,3 +1,6 @@
+# Version 0.2.1
+- Updated unit tests (no changes in functionality)
+
 # Version 0.2.0
 - Renamed `looker3::looker3` to `pull_data`
 - Added `get_sql` function, to request underlying sql query instead of data
