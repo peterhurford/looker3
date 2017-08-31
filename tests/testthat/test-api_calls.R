@@ -59,7 +59,5 @@ with_mock(
         list(model = args$model, view = args$view, fields = I(args$fields),
              filters = args$filters, limit = 20))
       })
-
     })
-
 })

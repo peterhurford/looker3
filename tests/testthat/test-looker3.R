@@ -1,12 +1,10 @@
 context("pull_data")
 
-
 fake_env_vars <- list(
   url    = "fake.looker.com:111/",
   id     = "fake_client",
   secret = "fake_secret"
 )
-
 
 withr::with_envvar(c(
   "LOOKER_URL"    = fake_env_vars$url,
@@ -36,12 +34,9 @@ withr::with_envvar(c(
           "place your Looker 3.0 client secret in the environment")
       )
     })
-
   })
 
-
   describe("pull_data passes arguments to run_inline_query correctly", {
-
     with_mock(
       `looker3:::run_inline_query` = function(url, id, secret,
                                              model, view, fields, filters,
@@ -50,7 +45,6 @@ withr::with_envvar(c(
              view = view, fields = fields, filters = filters,
              limit = limit)
       }, {
-
       args <- list(model = "look", view = "items",
         fields = c("category.name", "products.count"),
         filters = list("category.name" = "socks"))
@@ -79,6 +73,4 @@ withr::with_envvar(c(
       )
       })
   })
-
-
 })

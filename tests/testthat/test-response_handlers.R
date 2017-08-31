@@ -1,15 +1,13 @@
 context("response handling helper functions")
 
-fake_login_response  <- list(status = "200",
+fake_login_response   <- list(status = "200",
                             body = list(access_token = "FAKE_TOKEN"))
-fake_query_response  <- list(status = "200",
+fake_query_response   <- list(status = "200",
                              body = "ID, VALUE \n 1, 2")
 silent_error_response <- list(status = "200",
                               body = "Error: something went wrong despite the status code being successful")
-
-fake_query_failure   <- list(status = "500", error_message = "fake_error_message")
+fake_query_failure    <- list(status = "500", error_message = "fake_error_message")
 fake_query_failure_without_message <- list(status = "500")
-
 
 with_mock(
   `httr::status_code` = function(x) x$status,
@@ -41,7 +39,6 @@ with_mock(
     })
   })
 })
-
 
 test_that("helpers validate before processing responses", {
   with_mock(

@@ -47,7 +47,6 @@ describe("run_inline_query helpers called with the corresponding inputs", {
       })
 
       test_that("query_api_call receives its args, including token", {
-
         with_mock(
           `looker3:::query_api_call` = function(base_url, model, view, fields, filters, limit, ...) {
             actual_inputs <- list(base_url = base_url, model = model, view = view, fields = fields,
@@ -77,14 +76,21 @@ describe("run_inline_query helpers called with the corresponding inputs", {
         })
       })
 
-      test_that("extract_data_from_response receives the output of query_api_call", {
+      test_that("return_format determines the correct extractor to receives the output of query_api_call", {
         with_mock(
           `looker3:::query_api_call` = function(...) "response received",
           `looker3:::extract_data_from_response` = function(inline_query_response, ...) {
             stop(paste0("extract_data_from_response called: "), inline_query_response)
+          },
+          `looker3:::extract_sql_from_response` = function(inline_query_response, ...) {
+            stop(paste0("extract_sql_from_response called: "), inline_query_response)
           }, {
-            expect_error(do.call(run_inline_query, args),
+            csv_args <- within(args, {return_format = "csv"})
+            sql_args <- within(args, {return_format = "sql"})
+            expect_error(do.call(run_inline_query, csv_args),
               "extract_data_from_response called: response received")
+            expect_error(do.call(run_inline_query, sql_args),
+              "extract_sql_from_response called: response received")
         })
       })
   })
